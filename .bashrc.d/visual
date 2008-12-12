@@ -19,9 +19,9 @@ NC='\e[0m'              # No Color
 PS1USERCOLOR="$YELLOW"
 if [ "$UID" = "0" ]; then
     # I am root
-    PS1USERCOLOR="$LIGHTRED"
+    PS1USERCOLOR="$RED"
 fi
 
 # Setup the command shell prompt
-export PS1="\n$PS1USERCOLOR\u@\h$WHITE:$LIGHTBLUE\w\n$DARKGRAY)\$$WHITE "
+export PS1="\n$PS1USERCOLOR\u$YELLOW\[@\h$WHITE:$LIGHTBLUE\w\n$DARKGRAY)\$$WHITE "
 export PROMPT_COMMAND="veactivate silent &>/dev/null"
