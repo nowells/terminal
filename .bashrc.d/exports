@@ -1,0 +1,13 @@
+export PATH=$PATH:~/
+export SVNPROTO=svn+ssh://
+export SVNROOT=/var/svn
+export SERVER_IDENTIFIER="nbstrite"
+export SVN_EDITOR="emacs"
+export EDITOR="emacs"
+export TERM="rxvt"
+# make grep pretty
+export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
+# Erase duplicates
+export HISTCONTROL=erasedups
+# resize history size
+export HISTSIZE=5000

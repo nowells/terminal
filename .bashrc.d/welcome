@@ -1,0 +1,8 @@
+clear; #remove anything above this welcome screen
+echo -e "Kernel Information: " `uname -smr`;
+echo "";
+echo -ne "Hello $USER today is "; date
+echo -e "${WHITE}"; cal ; echo ""; # some date / calendar info
+mountedinfo; echo ""; # filesystem info
+echo -ne "${LIGHTBLUE}Uptime for this computer is ";uptime | awk /'up/ {print $3,$4}' # machine uptime
+echo ""; echo ""
