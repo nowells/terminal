@@ -32,6 +32,11 @@ if [ -f ~/.bashrc.d/development ]; then
     . ~/.bashrc.d/development
 fi
 
+if [ -f ~/.bashrc.d/local ]; then
+    # Exports
+    . ~/.bashrc.d/local
+fi
+
 # User specific aliases and functions
 umask 002 # allow user + group to write, no other
 
