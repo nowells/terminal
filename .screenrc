@@ -1,0 +1,30 @@
+# Use CTRL+Z as the meta key
+escape ^Za
+
+# I like to hear the bell
+vbell off
+
+# Have programs like Emacs cleanup their window content.
+altscreen on
+
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m/%d %{W}%c %{g}]'
+
+# I like a large scrollback
+defscrollback 5000
+
+# Run everything in UTF-8.
+defutf8 on
+
+# If a window goes unresponsive, don't block the whole session waiting for it.
+defnonblock on
+
+screen -t tllinux-0         0   ssh tllinux
+screen -t tllinux-1         1   ssh tllinux
+screen -t tllinux-2         2   ssh tllinux
+screen -t admin1-0          3   ssh admin1
+screen -t admin1-1          4   ssh admin1
+screen -t collab-0          5   ssh collab-private
+screen -t collab-1          6   ssh collab-private
+screen -t dipsy-0           7   ssh dipsy
+screen -t imaponline        8
