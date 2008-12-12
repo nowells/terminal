@@ -49,9 +49,6 @@
                   'py-beginning-of-def-or-class)
              (setq outline-regexp "def\\|class ")))
 
-(setq ipython-command "/usr/bin/ipython")
-(require 'ipython)
-
 ;; Makes all tabs into spaces
 (require 'cc-mode)
 (defun my-build-tab-stop-list (width)
