@@ -1,4 +1,5 @@
-# .bashrc
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -38,3 +39,11 @@ stty erase ^H
 stty ek
 # append to bash_history if shell quites
 shopt -s histappend
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+

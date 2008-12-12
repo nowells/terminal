@@ -11,3 +11,5 @@ export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 export HISTCONTROL=erasedups
 # resize history size
 export HISTSIZE=5000
+# don't put duplicate lines in the history. See bash(1) for more options
+export HISTCONTROL=ignoredups
