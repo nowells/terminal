@@ -16,6 +16,12 @@ YELLOW='\e[1;33m'
 WHITE='\e[1;37m'
 NC='\e[0m'              # No Color
 
+PS1USERCOLOR="$YELLOW"
+if [ "$UID" = "0" ]; then
+    # I am root
+    PS1USERCOLOR="$LIGHTRED"
+fi
+
 # Setup the command shell prompt
-export PS1="\n$YELLOW\u@\h$WHITE:$LIGHTBLUE\w\n$DARKGRAY)\$$WHITE "
-export PROMPT_COMMAND="veactivate silent"
+export PS1="\n$PS1USERCOLOR\u@\h$WHITE:$LIGHTBLUE\w\n$DARKGRAY)\$$WHITE "
+export PROMPT_COMMAND="veactivate silent &>/dev/null"
