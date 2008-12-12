@@ -3,3 +3,18 @@
 	email = nowell@strite.org
 [alias]
 	co = checkout
+    st = status
+    ci = commit
+    br = branch
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+
+[merge]
+    summary = true
+
+[core]
+    excludesfile = ~/.gitignore
