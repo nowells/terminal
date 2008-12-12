@@ -13,6 +13,8 @@ hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u
 # I like a large scrollback
 defscrollback 5000
 
+startup_message off
+
 # Run everything in UTF-8.
 defutf8 on
 
