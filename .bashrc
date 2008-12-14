@@ -32,6 +32,11 @@ if [ -f ~/.bashrc.d/development ]; then
     . ~/.bashrc.d/development
 fi
 
+if [ -f ~/.bashrc.d/functions ]; then
+    # Exports
+    . ~/.bashrc.d/functions
+fi
+
 if [ -f ~/.bashrc.d/local ]; then
     # Exports
     . ~/.bashrc.d/local
@@ -40,8 +45,6 @@ fi
 # User specific aliases and functions
 umask 002 # allow user + group to write, no other
 
-stty erase ^H
-stty ek
 # append to bash_history if shell quites
 shopt -s histappend
 
@@ -52,3 +55,9 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
+stty erase ^H
+stty ek
+stty -ixon                # disable Ctrl-S and Ctrl-Q, which suck!
+
+# Security: close root shells after n seconds of inactivity
+[ "$UID" = 0 ] && export TMOUT=180

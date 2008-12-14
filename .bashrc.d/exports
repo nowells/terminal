@@ -5,11 +5,13 @@ export SERVER_IDENTIFIER="nbstrite"
 export SVN_EDITOR="emacs"
 export EDITOR="emacs"
 export TERM="rxvt"
+export CLICOLOR=1
 # make grep pretty
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 # Erase duplicates
 export HISTCONTROL=erasedups
 # resize history size
-export HISTSIZE=5000
+export HISTSIZE=10000
+export HISTFILESIZE=10000
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups

@@ -1,10 +1,38 @@
-;; .emacs
-
 ;;; uncomment this line to disable loading of "default.el" at startup
 ;; (setq inhibit-default-init t)
+(custom-set-variables
+ '(case-fold-search t) ;; case-insensitive search
+ '(column-number-mode t)
+ '(current-language-environment "UTF-8")
+ '(default-input-method "rfc1345")
+ '(global-font-lock-mode    t nil (font-lock)) ;; Syntax higlighting
+ '(global-font-lock-mode t nil (font-lock))
+ '(inhibit-splash-screen t)
+ '(inhibit-startup-message  t)          ;; no startup message
+ '(scroll-bar-mode (quote right))
+ '(show-paren-mode t) ;; match parens
+ '(tab-always-indent nil)
+ '(tool-bar-mode nil) ;; highlight matches in query-replace
+ '(transient-mark-mode t)) ;; highlight the marked region
+'(next-line-add-newlines nil)
+'(message-log-max 512)
+(custom-set-faces
+ )
 
 ;; turn on font-lock mode
 (global-font-lock-mode t)
+
+;; enable visual feedback on selections
+(setq transient-mark-mode t)
+;; turn off tab char
+(setq-default indent-tabs-mode nil)
+
+;; ===== Set standard indent to 4 ====
+(setq default-tab-width 4)
+(setq standard-indent 4)
+
+;; delete \b at line ends before saving a file (delete trailing whitespace
+(add-hook 'write-file-hooks 'delete-trailing-whitespace)
 
 ;; Show line-number in the mode line
 (line-number-mode 1)
@@ -12,10 +40,8 @@
 ;; Show column-number in the mode line
 (column-number-mode 1)
 
-;; enable visual feedback on selections
-(setq transient-mark-mode t)
-(setq-default indent-tabs-mode nil)
-(setq default-tab-width 4)
+;; show matching parens
+(require 'paren) (show-paren-mode t)
 
 (setq blink-matching-paren t)
 (setq blink-matching-delay .5)
@@ -25,6 +51,9 @@
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+;; enable mouse scrolling
+(mouse-wheel-mode t)
 
 (setq load-path (cons "~/.emacs.d/extra" load-path))
 
@@ -68,5 +97,3 @@
 
 (autoload 'sgml-mode "psgml" "Major mode to edit SGML files." t)
 (autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
-
-
