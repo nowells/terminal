@@ -1,34 +1,170 @@
 # Cool History Summerizer
 historyawk(){ history|awk '{a[$2]++}END{for(i in a){printf"%5d\t%s\n",a[i],i}}'|sort -nr|head; }
 
-###
-###   Handy Extract Program
-###
-extract () {
-     if [ -f $1 ] ; then
-         case $1 in
-             *.tar.bz2)   tar xvjf $1        ;;
-             *.tar.gz)    tar xvzf $1     ;;
-             *.bz2)       bunzip2 $1       ;;
-             *.rar)       unrar x $1     ;;
-             *.gz)        gunzip $1     ;;
-             *.tar)       tar xvf $1        ;;
-             *.tbz2)      tar xvjf $1      ;;
-             *.tgz)       tar xvzf $1       ;;
-             *.zip)       unzip $1     ;;
-             *.Z)         uncompress $1  ;;
-             *.7z)        7z x $1    ;;
-             *)           echo "'$1' cannot be extracted via >extract<" ;;
-         esac
-     else
-         echo "'$1' is not a valid file"
-     fi
+#bu - Back Up a file. Usage "bu filename.txt"
+bu () { cp $1 ${1}-`date +%Y%m%d%H%M`.backup ; }
+
+cleanup () {
+    find ./ -name '*~' | xargs rm -f
+    find ./ -name '*.pyc' | xargs rm -f
+    find ./ -name '#*#' | xargs rm -f
+    find ./ -name '.*~' | xargs rm -f
+    find ./ -name '.#*' | xargs rm -f
+    clear
 }
 
-###
-###   Compress with tar + bzip2
-###
-bz2 () {
-    tar cvpjf $1.tar.bz2 $1
+function sysinfo () {
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo "Shows system information"
+        return
+    fi
+    echo -e "\nYou are logged on ${RED}$HOST"
+    echo -e "\nAdditionnal information:$NC " ; uname -a
+    echo -e "\n${RED}Users logged on:$NC " ; w -h
+    echo -e "\n${RED}Current date :$NC " ; date
+    echo -e "\n${RED}Machine stats :$NC " ; uptime
+    echo -e "\n${RED}Memory stats :$NC " ; free
+    echo -e "\n${RED}Disc stats :$NC " ; df
+    echo
 }
 
+function backup () {
+    if [ $# = 0 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo -e "Back up a file or folder of the current directory in tgz compressed file. Usage ${RED}'backup file'$NC or ${RED}'backup folder'$NC"
+        return
+    fi
+    if [ ! -d "$1" ] && [ ! -f "$1" ]; then
+        echo "'$1' is not a valid file or folder"
+        return
+    fi
+    # if $1 is a directory delete '/'
+    local FILE=`echo $1 | sed s/'\/'/''/g`
+
+    local EXTENSION=$(date +%Y%m%d).tgz
+    echo "saving backup of $FILE in $FILE_$EXTENSION...."
+    tar -czvf $FILE_$EXTENSION --recursion $FILE
+#   cp $1 ${1}-`date +%Y%m%d`.backup ;
+
+    if [ $? != 0 ]; then
+        echo -e "${RED}ERROR!$NC"
+    else
+        echo -e "${GREEN}done!$NC"
+    fi
+}
+
+function extract () {
+    if [ $# = 0 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo -e "Extract a compressed file in the current directory. If the contents of the file are several elements should be extracted in a subfolder with the suffix '_FILES'. Usage ${RED}'extract compressedfile'$NC"
+        return
+    fi
+    if [ ! -f "$1" ]; then
+        echo "'$1' is not a valid file"
+        return
+    fi
+
+    mkdir $1_FILES
+    cp $1 $1_FILES
+    cd $1_FILES
+
+    case $1 in
+    *.rar)       unrar x $1;; #rar xv $1
+    *.ace)       unace xv $1;;
+    *.zip)       unzip $1;;
+    *.bz2)       bunzip2 -vf $1;; #bunzip2 or bzip2 -d
+    *.gz)        gunzip -vf $1;;
+    *.tar)       tar -xvf $1;;
+    *.tar.bz2)   tar -xjvf $1;;
+    *.tbz)       tar -xjvf $1;;
+    *.tbz2)      tar -xjvf $1;;
+    *.tar.gz)    tar -xzvf $1;;
+    *.tgz)       tar -xzvf $1;;
+    *.Z)         uncompress v $1;;
+    *.7z)        7z x $1 ;;
+    *)           echo "extract don't know de extension of '$1'";;
+    esac
+    if [ $? != 0 ]; then
+        cd ..
+        rm -rf $1_FILES
+        echo -e "${RED}ERROR!$NC"
+    fi
+    rm -f $1
+
+    # looks if the content is one or more files
+    if [ `ls | wc -w` -eq 1 ] ; then
+        mv * ../
+        cd ..
+        rm -rf $1_FILES
+    else
+        cd ..
+        echo "all files extracted in $1_FILES"
+    fi
+    echo -e "${GREEN}done!$NC"
+}
+
+function cmpress () {
+    if [ $# = 0 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo -e "Compress in severals formats. To compress a file or folder in the current directory; usage ${RED}'cmpress file'$NC or ${RED}'cmpress folder'$NC."
+        echo -e "To compress multiple files and/or folders; usage ${RED}'cmpress files_and_folders'$NC. Example; 'cmpress foo.txt foo2.txt foo/ ..."
+        return
+    fi
+    for item in $*; do
+        if [ ! -d "$item" ] && [ ! -f "$item" ]; then
+            echo "'$item' is not a valid file or folder"
+            return
+        fi
+    done
+
+    # recieved one file or folder to compress
+    if [ $# -eq 1 ]; then
+        local FILES=$1
+        # if $1 is a directory delete '/'
+        if [ -d "$1" ]; then
+            local CFILE=`echo $1 | sed s/'\/'/''/g`
+        else
+            local CFILE=$1
+        fi
+    # recieved more than one file to compress
+    else
+        local FILES=$*
+        echo -n "You want to compress multiple files, select a name for the compressed file:"
+        read CFILE
+    fi
+
+    echo "********************************************************"
+    echo " Choose the format to compress" #'$CFILE'"
+    echo "********************************************************"
+    echo " 0 .rar"
+    echo " 1 .ace (not implemented)"
+    echo " 2 .zip"
+    echo " 3 .bz2 (only files, not folders)"
+    echo " 4 .gz (only files, not folders)"
+    echo " 5 .tar"
+    echo " 6 .tbz/.tar.bz2"
+    echo " 7 .tgz/.tar.gz"
+    echo " 8 .Z (not implemented)"
+    echo " 9 .7z"
+    echo " [Other] Exit"
+    echo "********************************************************"
+    echo -n "Enter your menu choice: "
+    read OPTION
+
+    case $OPTION in
+    0)      rar a -r $CFILE.rar $FILES;;
+    1)      echo "not implemented"; return;; #unace;;
+    2)      zip -rv $CFILE.zip $FILES;;
+    3)      bzip2 -zvf $FILES;;
+    4)      gzip -vf $FILES;;
+    5)      tar -cvf $CFILE.tar $FILES;;
+    6)      tar -cjvf $CFILE.tbz --recursion $FILES;;
+    7)      tar -czvf $CFILE.tgz --recursion $FILES;;
+    8)      echo "not implemented"; return;;
+    9)      7z a -r $CFILE.7z $FILES;;
+    *)      echo "Exit"; return;;
+    esac
+
+    if [ $? != 0 ]; then
+        echo -e "${RED}ERROR!$NC"
+    else
+        echo -e "${GREEN}done!$NC"
+    fi
+}
