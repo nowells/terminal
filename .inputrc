@@ -21,9 +21,6 @@ set blink-matching-paren on
 "\eOA": history-search-backward
 "\eOB": history-search-forward
 
-# first <TAB> suggests ambiguous variants, instead of <TAB><TAB>
-set show-all-if-ambiguous on
-
 # show file types while completing
 set visible-stats on
 
