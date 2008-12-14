@@ -6,6 +6,8 @@ export SVN_EDITOR="emacs"
 export EDITOR="emacs"
 export TERM="rxvt"
 export CLICOLOR=1
+export INPUTRC="~/.inputrc"
+
 # make grep pretty
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 # Erase duplicates
