@@ -7,10 +7,10 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-#if [ -r /etc/bash_completion ]; then
-#   Source completion code.
-#   . /etc/bash_completion
-#fi
+if [ -r /etc/bash_completion ]; then
+   # Source completion code.
+   . /etc/bash_completion
+fi
 
 if [ -f ~/.bashrc.d/visual ]; then
     # Visual styles
