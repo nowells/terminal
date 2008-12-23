@@ -19,6 +19,15 @@
 (custom-set-faces
  )
 
+;;;LOOK AND FEEL
+(setq default-frame-alist
+                '((top . 1) (left . 394)
+                  (width . 80) (height . 40)
+                  (cursor-color . "yellow")
+                  (cursor-type . box)
+                  (foreground-color . "white")
+                  (background-color . "black")))
+
 ;; turn on font-lock mode
 (global-font-lock-mode t)
 
