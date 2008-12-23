@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-if [[ $SYS_BASE =~ 'mac' ]]; then
+if [ "$SYS_BASE" = 'mac' ]; then
     export SYSTEM='mac'
 else
     export SYSTEM='linux'
