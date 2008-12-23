@@ -39,5 +39,5 @@ if [ "$UID" = "0" ]; then
 fi
 
 # Setup the command shell prompt
-export PS1="\n\[$PS1USERCOLOR\[\u\[$YELLOW\[@\h\[$WHITE\[:\[$LIGHTBLUE\[\w\n\[$DARKGRAY\[)\$\[$WHITE\[ "
+export PS1="\n$PS1USERCOLOR\u$YELLOW\[@\h$WHITE\[:$LIGHTBLUE\w$DARKGRAY\[\n\$ \[$WHITE"
 export PROMPT_COMMAND="veactivate silent &>/dev/null"
