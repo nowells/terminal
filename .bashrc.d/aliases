@@ -1,5 +1,5 @@
 alias em="emacs "
-if [ "$SYSTEM" = 'mac' ]; then
+if [ "$SYS_BASE" = 'mac' ]; then
    alias ls='ls -ahG'
 else
    alias ls='ls -ah --color -I*.pyc -I.svn -I. -I..'

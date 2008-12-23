@@ -1,11 +1,23 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-if [ "$SYS_BASE" = 'mac' ]; then
-    export SYSTEM='mac'
-else
-    export SYSTEM='linux'
-fi
+case `uname` in
+    IRIX64)
+        SYS_BASE=sgi
+        ;;
+    SunOS)
+        SYS_BASE=sun
+        ;;
+    Linux)
+        SYS_BASE=linux
+        ;;
+    Darwin)
+        SYS_BASE=mac
+        ;;
+    *)
+        SYS_BASE=unknown
+        ;;
+esac
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
