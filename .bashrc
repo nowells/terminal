@@ -1,6 +1,12 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+if [[ $SYS_BASE =~ 'mac' ]]; then
+    export SYSTEM='mac'
+else
+    export SYSTEM='linux'
+fi
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     # Global bashrc
@@ -48,16 +54,23 @@ umask 002 # allow user + group to write, no other
 # append to bash_history if shell quites
 shopt -s histappend
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+# prevent overwriting files with cat
+set -o noclobber
+
+# Stop ctrl+d from logging me out
+set -o ignoreeof
+
+# disable Ctrl-S and Ctrl-Q, which suck!
+stty -ixon
 
 stty erase ^H
 stty ek
-stty -ixon                # disable Ctrl-S and Ctrl-Q, which suck!
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 # Security: close root shells after n seconds of inactivity
 [ "$UID" = 0 ] && export TMOUT=180
