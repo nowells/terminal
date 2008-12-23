@@ -1,9 +1,13 @@
 alias em="emacs "
-alias ls='ls -a -h --color -I*.pyc -I.svn -I. -I..'
+if [[ $SYSTEM =~ 'mac' ]]; then
+   alias ls='ls -ahG'
+else
+   alias ls='ls -ah --color -I*.pyc -I.svn -I. -I..'
+fi
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-alias clear='clear;ls -a --color'
+alias clear='clear;ls'
 alias searchcode="find ./ -name '*.py' -or -name '*.html' -or -name '*.js' -or -name '*.css' | xargs grep "
 alias detabbify='sed -i -r -s -e "s/\t/    /g"'
 
