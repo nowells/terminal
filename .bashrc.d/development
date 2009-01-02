@@ -32,13 +32,13 @@ veactivate () {
         vedeactivate
         return
     fi
-    
+
     # unset irrelavent variables
     vedeactivate nondestructive
-    
+
     VIRTUAL_ENV="$PWD/ve"
     export VIRTUAL_ENV
-    
+
     _OLD_VIRTUAL_PATH="$PATH"
     PATH="$VIRTUAL_ENV/bin:$PATH"
     export PATH
@@ -49,10 +49,10 @@ veactivate () {
         # see http://www.zetadev.com/software/aspen/
         PS1="\n\[$LIGHTPURPLE\[[`basename \`dirname \"$VIRTUAL_ENV\"\``] $PS1"
     else
-        PS1="\n\[$LIGHTPURPLE\[virtualenv: `basename \`dirname \"$VIRTUAL_ENV\"\``$PS1"
+        PS1="\n\[$LIGHTPURPLE\]virtualenv: `basename \`dirname \"$VIRTUAL_ENV\"\``$PS1"
     fi
     export PS1
-    
+
     # This should detect bash and zsh, which have a hash command that must
     # be called to get it to forget past commands.  Without forgetting
     # past commands the $PATH changes we made may not be respected

@@ -1,12 +1,14 @@
 export PATH=$PATH:~/
 export SVNPROTO=svn+ssh://
 export SVNROOT=/var/svn
-export SERVER_IDENTIFIER="nbstrite"
+export SERVER_IDENTIFIER="local"
 export SVN_EDITOR="emacs"
 export EDITOR="emacs"
 export TERM="rxvt"
 export CLICOLOR=1
 export INPUTRC="~/.inputrc"
+export TERM=xterm-color
+export LSCOLORS="ExFxCxDxBxegedabagacad"
 
 # make grep pretty
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
