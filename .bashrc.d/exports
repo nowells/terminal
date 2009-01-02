@@ -10,9 +10,11 @@ export INPUTRC="~/.inputrc"
 if [ "$SYS_BASE" = 'mac' ]; then
    export TERM=xterm-color
 else
-   export TERM=vt100
+   export TERM=rxvt
 fi
 export LSCOLORS="ExFxCxDxBxegedabagacad"
+
+export LESS="-erX" # Add color support to less
 
 # make grep pretty
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'

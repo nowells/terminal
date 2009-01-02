@@ -10,7 +10,6 @@ alias rm='rm -i'
 alias clear='clear;ls'
 alias searchcode="find ./ -name '*.py' -or -name '*.html' -or -name '*.js' -or -name '*.css' | xargs grep "
 alias detabbify='sed -i -r -s -e "s/\t/    /g"'
-
 alias du='du -sh'                        # disk usage is human
 alias df='df -h'                        # disk freespace is human
 alias hgrep='history | sed s/\ \ .*\ \ // | grep'
