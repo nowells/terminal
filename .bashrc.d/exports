@@ -7,7 +7,11 @@ export EDITOR="emacs"
 export TERM="rxvt"
 export CLICOLOR=1
 export INPUTRC="~/.inputrc"
-export TERM=vt100
+if [ "$SYS_BASE" = 'mac' ]; then
+   export TERM=xterm-color
+else
+   export TERM=vt100
+fi
 export LSCOLORS="ExFxCxDxBxegedabagacad"
 
 # make grep pretty
