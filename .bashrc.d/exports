@@ -7,7 +7,7 @@ export EDITOR="emacs"
 export TERM="rxvt"
 export CLICOLOR=1
 export INPUTRC="~/.inputrc"
-export TERM=xterm-color
+export TERM=vt100
 export LSCOLORS="ExFxCxDxBxegedabagacad"
 
 # make grep pretty
