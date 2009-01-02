@@ -26,6 +26,20 @@ vedeactivate () {
 
 veactivate () {
     if [ ! -f ./ve/bin/activate ] ; then
+        if [ -f ./fabreqs.py ] ; then
+            # unset irrelavent variables
+            vedeactivate nondestructive
+
+            _OLD_VIRTUAL_PS1="$PS1"
+            PS1="\n\[$RED\]You need to run 'fab bootstrap' to initialize this environment. $PS1"
+            export PS1
+
+            if [ -n "$BASH" -o -n "$ZSH_VERSION" ] ; then
+                hash -r
+            fi
+            return
+        fi
+
         if [ ! "$1" = "silent" ] ; then
             echo -e "${RED}You must run this command at the root of your a project that is powered by python virtualenv."
         fi
