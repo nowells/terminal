@@ -1,8 +1,10 @@
 alias em="emacs "
 if [ "$SYS_BASE" = 'mac' ]; then
-   alias ls='ls -AhG'
+    alias ls='ls -AhG'
+    alias ll='ls -l'
 else
-   alias ls='ls -ah --color -I*.pyc -I.svn -I. -I..'
+    alias ls='ls -ah --color -I*.pyc -I.svn -I. -I..'
+    alias ll='ls -l'
 fi
 alias cp='cp -i'
 alias mv='mv -i'
