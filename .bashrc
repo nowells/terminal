@@ -30,6 +30,11 @@ if [ -r /etc/bash_completion ]; then
    . /etc/bash_completion
 fi
 
+if [ -r ~/.bashrc.d/completions/git-completion.bash ]; then
+   # Source completion code.
+   . ~/.bashrc.d/completions/git-completion.bash
+fi
+
 if [ -f ~/.bashrc.d/visual ]; then
     # Visual styles
     . ~/.bashrc.d/visual
