@@ -1,4 +1,3 @@
-
 """
 Python dot expression completion using Pymacs.
 
@@ -6,23 +5,22 @@ This almost certainly needs work, but if you add
 
     (require 'pycomplete)
 
-to your .xemacs/init.el file (untried w/ GNU Emacs so far) and have Pymacs
-installed, when you hit M-TAB it will try to complete the dot expression
+to your .xemacs/init.el file (.emacs for GNU Emacs) and have Pymacs
+installed, when you hit TAB it will try to complete the dot expression
 before point.  For example, given this import at the top of the file:
 
     import time
 
-typing "time.cl" then hitting M-TAB should complete "time.clock".
-
-This is unlikely to be done the way Emacs completion ought to be done, but
-it's a start.  Perhaps someone with more Emacs mojo can take this stuff and
-do it right.
+typing "time.cl" then hitting TAB should complete "time.clock".
 
 See pycomplete.el for the Emacs Lisp side of things.
 """
-
 import sys
 import os.path
+import string 
+from Pymacs import lisp
+
+sys.path.append(".")
 
 try:
     x = set
@@ -43,8 +41,9 @@ def get_all_completions(s, imports=None):
                 exec stmt in globals(), locald
             except TypeError:
                 raise TypeError, "invalid type: %s" % stmt
-
-    dots = s.split(".")
+            except:
+                continue
+    dots = s.split(".") 
     if not s or len(dots) == 1:
         keys = set()
         keys.update(locald.keys())
@@ -60,7 +59,7 @@ def get_all_completions(s, imports=None):
 
     sym = None
     for i in range(1, len(dots)):
-        s = ".".join(dots[:i])
+        s = ".".join(dots[:i])   
         try:
             sym = eval(s, globals(), locald)
         except NameError:
@@ -68,22 +67,48 @@ def get_all_completions(s, imports=None):
                 sym = __import__(s, globals(), locald, [])
             except ImportError:
                 return []
-    if sym is not None:
-        s = dots[-1]
+    if sym is not None:  
+        s = dots[-1]     
         return [k for k in dir(sym) if k.startswith(s)]
 
 def pycomplete(s, imports=None):
     completions = get_all_completions(s, imports)
     dots = s.split(".")
-    return os.path.commonprefix([k[len(dots[-1]):] for k in completions])
+    result = os.path.commonprefix([k[len(dots[-1]):] for k in completions])
+
+    if result == "":
+        if completions:
+            width = lisp.window_width() - 2
+            colum = width / 20
+            white = "                    "
+
+            msg = ""
+
+            counter = 0
+            for completion in completions :
+                if completion.__len__() < 20 :
+                    msg += completion + white[completion.__len__():]
+                    counter += 1
+                else :
+                    msg += completion + white[completion.__len__() - 20:]
+                    counter += 2
+
+                if counter >= colum :
+                    counter = 0
+                    msg += '\n'
+
+        else:
+            msg = "no completions!"
+        lisp.message(msg)
+    return  result       
 
 if __name__ == "__main__":
-    print "<empty> ->", pycomplete("")
+    print " ->", pycomplete("")
     print "sys.get ->", pycomplete("sys.get")
     print "sy ->", pycomplete("sy")
     print "sy (sys in context) ->", pycomplete("sy", imports=["import sys"])
     print "foo. ->", pycomplete("foo.")
-    print "Enc (email * imported) ->",
+    print "Enc (email * imported) ->", 
     print pycomplete("Enc", imports=["from email import *"])
     print "E (email * imported) ->",
     print pycomplete("E", imports=["from email import *"])

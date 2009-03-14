@@ -1,22 +1,49 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;Library Paths
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d")
+(progn (cd "~/.emacs.d") (normal-top-level-add-subdirs-to-load-path))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;Libraries to autoload
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'ipython)
+(require 'lorem-ipsum)
+(require 'column-marker)
+(require 'pager)
+
+;; http://www.cua.dk/ido.html
+(require 'ido)
+(ido-mode t)
+
 ;;; uncomment this line to disable loading of "default.el" at startup
 ;; (setq inhibit-default-init t)
 (custom-set-variables
- '(case-fold-search t) ;; case-insensitive search
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(case-fold-search t)
  '(column-number-mode t)
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
- '(global-font-lock-mode    t nil (font-lock)) ;; Syntax higlighting
  '(global-font-lock-mode t nil (font-lock))
+ '(gud-gdb-command-name "gdb --annotate=1")
  '(inhibit-splash-screen t)
- '(inhibit-startup-message  t)          ;; no startup message
+ '(large-file-warning-threshold nil)
  '(scroll-bar-mode (quote right))
- '(show-paren-mode t) ;; match parens
+ '(show-paren-mode t)
  '(tab-always-indent nil)
- '(tool-bar-mode nil) ;; highlight matches in query-replace
- '(transient-mark-mode t)) ;; highlight the marked region
+ '(tool-bar-mode nil)
+ '(transient-mark-mode t))
+ ;; highlight the marked region
 '(next-line-add-newlines nil)
 '(message-log-max 512)
 (custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  )
 
 ;;;LOOK AND FEEL
@@ -63,8 +90,6 @@
 
 ;; enable mouse scrolling
 (mouse-wheel-mode t)
-
-(setq load-path (cons "~/.emacs.d/extra" load-path))
 
 (setq c-basic-offset 4)
 (autoload 'javascript-mode "javascript-mode" "JavaScript mode" t)
