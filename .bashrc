@@ -35,6 +35,11 @@ if [ -r ~/.bashrc.d/completions/git-completion.bash ]; then
    . ~/.bashrc.d/completions/git-completion.bash
 fi
 
+if [ -r ~/.bashrc.d/completions/hg-completion.bash ]; then
+   # Source completion code.
+   . ~/.bashrc.d/completions/hg-completion.bash
+fi
+
 if [ -f ~/.bashrc.d/visual ]; then
     # Visual styles
     . ~/.bashrc.d/visual
