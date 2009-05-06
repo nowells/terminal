@@ -38,6 +38,26 @@ if [ "$UID" = "0" ]; then
     PS1USERCOLOR="$RED"
 fi
 
+hg_dirty() {
+    if [ -e "$PWD/.hg" ]; then
+        hg status --no-color 2> /dev/null \
+        | awk '$1 == "?" { print "?" } $1 != "?" { print "!" }' \
+        | sort | uniq | head -c1
+    fi
+}
+
+hg_branch() {
+    if [ -e "$PWD/.hg" ]; then
+        hg branch 2> /dev/null | awk '{if ($1) printf ("(%s) ", $1) }'
+    fi
+}
+
+git_branch() {
+    if [ -e "$PWD/.git" ]; then
+       git branch 2> /dev/null | grep '*' | awk '{if ($2) printf ("(%s) ", $2) }'
+    fi
+}
+
 # Setup the command shell prompt
-export PS1="\n\[$GREEN\]\$(__git_ps1 \"(%s) \")\[$PS1USERCOLOR\]\u\[$YELLOW\]@\h\[$WHITE\]:\[$LIGHTBLUE\]\w\[$DARKGRAY\]\n\$ \[$NC\]"
+export PS1="\n\[$GREEN\]\$(git_branch)\$(hg_branch)\[$PS1USERCOLOR\]\u\[$YELLOW\]@\h\[$WHITE\]:\[$LIGHTBLUE\]\w\[$DARKGRAY\]\n\$ \[$NC\]"
 export PROMPT_COMMAND="veactivate silent &>/dev/null"
