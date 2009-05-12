@@ -99,8 +99,8 @@
 ;(add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
 ;(autoload 'css-mode "css-mode" nil t)
 
-(add-to-list 'auto-mode-alist '("\\.html\\'" . django-mode))
-(autoload 'django-mode "django-mode" nil t)
+;(add-to-list 'auto-mode-alist '("\\.html\\'" . django-mode))
+;(autoload 'django-mode "django-mode" nil t)
 
 (autoload 'python-mode "python-mode" "Python Mode." t)
  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
