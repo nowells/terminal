@@ -16,7 +16,7 @@ USE:
   * j -t rank # goes to highest ranked dir matching foo
   * j -l foo  # list all dirs matching foo
 '''
-
+from __future__ import with_statement
 import os, sys, time
 
 class J(object):
