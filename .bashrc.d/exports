@@ -1,4 +1,4 @@
-export PATH=$PATH:/usr/local/bin:~/bin
+export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/bin:/sbin:/opt/local/bin:/opt/local/sbin:~/bin
 export SVNPROTO=svn+ssh://
 export SVNROOT=/var/svn
 export SERVER_IDENTIFIER="local"

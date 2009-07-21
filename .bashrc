@@ -96,3 +96,6 @@ stty ek
 
 # Security: close root shells after n seconds of inactivity
 [ "$UID" = 0 ] && export TMOUT=180
+
+export JPY=~/lib/j2/j.py
+. ~/lib/j2/j.sh
