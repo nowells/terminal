@@ -26,7 +26,7 @@ vedeactivate () {
 
 veactivate () {
     if [ ! -f ./ve/bin/activate ] ; then
-        if [ -f ./fabreqs.py ] ; then
+        if [ -f ./fabfile.py ] ; then
             # unset irrelavent variables
             vedeactivate nondestructive
 
