@@ -1,0 +1,10 @@
+pushd . > /dev/null
+cd `dirname $BASH_SOURCE`
+SCRIPT_DIR=$PWD
+popd > /dev/null
+
+# Alias all commands that read configuration files from home directory to load from remote source.
+alias emacs="emacs -q --load $SCRIPT_DIR/.emacs"
+alias screen="screen -c $SCRIPT_DIR/.screenrc"
+
+source $SCRIPT_DIR/.bashrc
