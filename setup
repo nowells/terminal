@@ -13,15 +13,6 @@ linkfile () {
 
 mkdir -p $FILEROOT/.bak/
 
-linkfile '.bashrc'
-linkfile '.bashrc.d'
-linkfile '.emacs'
-linkfile '.emacs.d'
-linkfile '.profile'
-linkfile '.bash_profile'
-linkfile '.gitignore'
-linkfile '.gitconfig'
-linkfile '.inputrc'
-linkfile 'lib'
-linkfile '.screenrc'
-linkfile '.subversion'
+for file in $(find -E $FILEROOT -depth 1 -not -regex '.*(setup|\.git|~|#|.bak|init)$'); do
+    linkfile `basename $file`
+done
