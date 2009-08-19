@@ -1,8 +1,13 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Library Paths
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "~/.emacs.d")
-(progn (cd "~/.emacs.d") (normal-top-level-add-subdirs-to-load-path))
+(defun system-emacs-load-dirs (dir)
+  (add-to-list 'load-path dir)
+  (let ((cwd default-directory))
+    (cd dir)
+    (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+        (normal-top-level-add-subdirs-to-load-path))
+    (cd cwd)))
+
+(if (getenv "__REMOTE_TERMINAL_SCRIPT_DIR")
+  (system-emacs-load-dirs (concat (getenv "__REMOTE_TERMINAL_SCRIPT_DIR") "/.emacs.d")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Libraries to autoload
