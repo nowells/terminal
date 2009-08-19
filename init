@@ -1,5 +1,5 @@
 if [[ !$BASH_SOURCE ]]; then
-    if [ -d $1 ] ; then
+    if [[ -nz $1 && -d $1 ]] ; then
         pushd . > /dev/null
         cd $1
         export __REMOTE_TERMINAL_SCRIPT_DIR=$PWD
