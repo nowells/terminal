@@ -1,11 +1,24 @@
-pushd . > /dev/null
-cd `dirname $BASH_SOURCE`
-export __REMOTE_TERMINAL_SCRIPT_DIR=$PWD
-popd > /dev/null
+if [[ !$BASH_SOURCE ]]; then
+    if [ -d $1 ] ; then
+        pushd . > /dev/null
+        cd $1
+        export __REMOTE_TERMINAL_SCRIPT_DIR=$PWD
+        popd > /dev/null
+    else
+        echo "On older systems you must run 'source SOME_PATH/init SOME_PATH"
+    fi
+else
+    pushd . > /dev/null
+    cd `dirname $BASH_SOURCE`
+    export __REMOTE_TERMINAL_SCRIPT_DIR=$PWD
+    popd > /dev/null
+fi
 
-# Alias all commands that read configuration files from home directory to load from remote source.
-alias emacs="emacs -q --load $__REMOTE_TERMINAL_SCRIPT_DIR/.emacs"
-alias screen="screen -c $__REMOTE_TERMINAL_SCRIPT_DIR/.screenrc"
+if [[ $__REMOTE_TERMINAL_SCRIPT_DIR ]]; then
+    # Alias all commands that read configuration files from home directory to load from remote source.
+    alias emacs="emacs -q --load $__REMOTE_TERMINAL_SCRIPT_DIR/.emacs"
+    alias screen="screen -c $__REMOTE_TERMINAL_SCRIPT_DIR/.screenrc"
 
-export PATH=$__REMOTE_TERMINAL_SCRIPT_DIR/bin:$PATH
-source $__REMOTE_TERMINAL_SCRIPT_DIR/.bashrc
+    export PATH=$__REMOTE_TERMINAL_SCRIPT_DIR/bin:$PATH
+    source $__REMOTE_TERMINAL_SCRIPT_DIR/.bashrc
+fi
