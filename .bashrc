@@ -19,6 +19,11 @@ case `uname` in
         ;;
 esac
 
+BASHRC_CONFIG_DIR=~/
+if [[ $__REMOTE_TERMINAL_SCRIPT_DIR ]]; then
+    BASHRC_CONFIG_DIR=$__REMOTE_TERMINAL_SCRIPT_DIR
+fi
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     # Global bashrc
@@ -30,44 +35,44 @@ if [ -r /etc/bash_completion ]; then
    . /etc/bash_completion
 fi
 
-if [ -r ~/.bashrc.d/completions/git-completion.bash ]; then
+if [ -r $BASHRC_CONFIG_DIR/.bashrc.d/completions/git-completion.bash ]; then
    # Source completion code.
-   . ~/.bashrc.d/completions/git-completion.bash
+   . $BASHRC_CONFIG_DIR/.bashrc.d/completions/git-completion.bash
 fi
 
-if [ -r ~/.bashrc.d/completions/hg-completion.bash ]; then
+if [ -r $BASHRC_CONFIG_DIR/.bashrc.d/completions/hg-completion.bash ]; then
    # Source completion code.
-   . ~/.bashrc.d/completions/hg-completion.bash
+   . $BASHRC_CONFIG_DIR/.bashrc.d/completions/hg-completion.bash
 fi
 
-if [ -f ~/.bashrc.d/visual ]; then
+if [ -f $BASHRC_CONFIG_DIR/.bashrc.d/visual ]; then
     # Visual styles
-    . ~/.bashrc.d/visual
+    . $BASHRC_CONFIG_DIR/.bashrc.d/visual
 fi
 
-if [ -f ~/.bashrc.d/exports ]; then
+if [ -f $BASHRC_CONFIG_DIR/.bashrc.d/exports ]; then
     # Exports
-    . ~/.bashrc.d/exports
+    . $BASHRC_CONFIG_DIR/.bashrc.d/exports
 fi
 
-if [ -f ~/.bashrc.d/aliases ]; then
-    # Exports
-    . ~/.bashrc.d/aliases
+if [ -f $BASHRC_CONFIG_DIR/.bashrc.d/aliases ]; then
+    # Aliases
+    . $BASHRC_CONFIG_DIR/.bashrc.d/aliases
 fi
 
-if [ -f ~/.bashrc.d/development ]; then
-    # Exports
-    . ~/.bashrc.d/development
+if [ -f $BASHRC_CONFIG_DIR/.bashrc.d/development ]; then
+    # Development
+    . $BASHRC_CONFIG_DIR/.bashrc.d/development
 fi
 
-if [ -f ~/.bashrc.d/functions ]; then
-    # Exports
-    . ~/.bashrc.d/functions
+if [ -f $BASHRC_CONFIG_DIR/.bashrc.d/functions ]; then
+    # Functions
+    . $BASHRC_CONFIG_DIR/.bashrc.d/functions
 fi
 
-if [ -f ~/.bashrc.d/local ]; then
-    # Exports
-    . ~/.bashrc.d/local
+if [ -f $BASHRC_CONFIG_DIR/.bashrc.d/local ]; then
+    # Local overrides
+    . $BASHRC_CONFIG_DIR/.bashrc.d/local
 fi
 
 # User specific aliases and functions
