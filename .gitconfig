@@ -1,20 +1,50 @@
 [user]
-	name = Nowell Strite
-	email = nowell@strite.org
+    name = Nowell Strite
+    email = nowell@strite.org
+
+[push]
+    default = current
+
 [alias]
-	co = checkout
+    co = checkout
     st = status
     ci = commit
     br = branch
+    unstage = reset HEAD --
+    visual = !gitk
 
 [color]
     diff = auto
     status = auto
     branch = auto
     interactive = auto
+    ui = true
 
-[merge]
-    summary = true
+[branch]
+    autosetupmerge = always
 
 [core]
     excludesfile = ~/.gitignore
+    editor = emacs
+    whitespace = fix
+
+[merge]
+    tool = p4
+
+[mergetool]
+    prompt = no
+    trustExitCode = false
+
+[mergetool "p4"]
+    prompt = no
+    cmd = /Applications/p4merge.app/Contents/MacOS/p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+
+[diff]
+    tool = p4
+
+[difftool]
+    prompt = no
+    trustExitCode = false
+
+[difftool "p4"]
+    cmd = /Applications/p4merge.app/Contents/MacOS/p4merge "$LOCAL" "$REMOTE"
