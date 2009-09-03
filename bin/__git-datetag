@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ $# = 1 ]; then
+    git tag -s $1.`date "+%Y%m%d"`
+    exit 0
+else
+    echo "usage: 'git datetag VERSIONID'"
+    exit 1
+fi

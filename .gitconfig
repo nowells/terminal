@@ -12,6 +12,7 @@
     br = branch
     unstage = reset HEAD --
     visual = !gitk
+    datetag = !__git-datetag
 
 [color]
     diff = auto
