@@ -13,6 +13,6 @@ linkfile () {
 
 mkdir -p $FILEROOT/.bak/
 
-for file in $(find -E $FILEROOT -maxdepth 1 -not -regex '.*(setup|\.git|~|#|.bak|init)$'); do
+for file in $(find $FILEROOT -regextype posix-extended -maxdepth 1 -not -regex '.*(setup|\.git|~|#|.bak|init)$'); do
     linkfile `basename $file`
 done
