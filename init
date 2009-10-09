@@ -18,7 +18,7 @@ if [[ $__REMOTE_TERMINAL_SCRIPT_DIR ]]; then
     # Alias all commands that read configuration files from home directory to load from remote source.
     alias emacs="emacs --load $__REMOTE_TERMINAL_SCRIPT_DIR/.emacs"
     alias screen="screen -c $__REMOTE_TERMINAL_SCRIPT_DIR/.screenrc"
-
+    export HOME=$__REMOTE_TERMINAL_SCRIPT_DIR
     export PATH=$__REMOTE_TERMINAL_SCRIPT_DIR/bin:$PATH
     source $__REMOTE_TERMINAL_SCRIPT_DIR/.bashrc
 fi
