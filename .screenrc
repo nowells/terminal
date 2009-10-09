@@ -73,7 +73,7 @@ screen -t home-1    1
 # ===============================================================
 # VARIABLES - Number values
 # ===============================================================
-  defscrollback         5000            # default: 100
+  defscrollback         50000            # default: 100
 # msgminwait            3               # default: 1
   silencewait           15              # default: 30
 #
@@ -128,7 +128,7 @@ screen -t home-1    1
 # in addition to the hardstatus line.
 #
 # use caption to show window list:
-caption always "%{= kw}%?%-Lw%?%{+b kw}%n*%t%f %?(%u)%?%{= kw}%?%+Lw%?"
+caption always "%{= kw}%?%-Lw%?%{+b ky}%n*%t%f %?(%u)%?%{= kw}%?%+Lw%?"
 
 
 # caption always '%{= wb}%50=%n%f %t%{= wb}'
