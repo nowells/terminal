@@ -1,3 +1,4 @@
+alias emacs="emacs -nw"
 alias em="emacs "
 if [ "$SYS_BASE" = 'mac' ]; then
     alias ls='ls -AhG'
