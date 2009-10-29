@@ -1,0 +1,7 @@
+---
+ignore: []
+
+versions:
+- heads/master
+- heads/staging
+max_commits: 5
