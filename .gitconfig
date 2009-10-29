@@ -21,7 +21,7 @@
     merge-candidate = merge --no-ff
     igrep = grep --full-name -IiE
     remote-branch = !__git-remote-branch
-    wtf = !__git-wtf
+    wtf = !__git-wtf | less -E
 
 [color]
     diff = auto
