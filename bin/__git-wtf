@@ -84,6 +84,8 @@ if $dump_config
   exit(0)
 end
 
+`git fetch`
+
 ## the set of commits in 'to' that aren't in 'from'.
 ## if empty, 'to' has been merged into 'from'.
 def commits_between from, to
