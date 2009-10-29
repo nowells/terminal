@@ -121,20 +121,20 @@ def show b, all_branches
 
     both = !pushc.empty? && !pullc.empty?
     if pushc.empty?
-      puts "[x] in sync with remote"
+      puts "\e[1;32m[x] in sync with remote\e[0m"
     else
       action = both ? "push after rebase / merge" : "push"
-      puts "[ ] NOT in sync with remote (needs #{action})"
+      puts "\e[1;31m[ ] NOT in sync with remote (needs #{action})\e[0m"
       show_commits pushc
     end
 
     puts "\nRemote branch: #{b[:remote_branch]} (#{b[:remote_url]})"
 
     if pullc.empty?
-      puts "[x] in sync with local"
+      puts "\e[1;32m[x] in sync with local\e[0m"
     else
       action = pushc.empty? ? "merge" : "rebase / merge"
-      puts "[ ] NOT in sync with local (needs #{action})"
+      puts "\e[1;31m[ ] NOT in sync with local (needs #{action})\e[0m"
       show_commits pullc
 
       both = !pushc.empty? && !pullc.empty?
@@ -148,12 +148,12 @@ def show b, all_branches
       remote_ahead = b[:remote_branch] ? commits_between(b[:remote_branch], br[:local_branch]) : []
       local_ahead = commits_between b[:local_branch], br[:local_branch]
       if local_ahead.empty? && remote_ahead.empty?
-        puts "[x] #{br[:name]} is merged in"
+        puts "\e[1;32m[x] #{br[:name]} is merged in\e[0m"
       elsif local_ahead.empty? && b[:remote_branch]
-        puts "(x) #{br[:name]} merged in (only locally)"
+        puts "\e[1;34m(x) #{br[:name]} merged in (only locally)\e[0m"
       else
         behind = commits_between br[:local_branch], b[:local_branch]
-        puts "[ ] #{br[:name]} is NOT merged in (#{ahead_behind_string local_ahead, behind})"
+        puts "\e[1;31m[ ] #{br[:name]} is NOT merged in (#{ahead_behind_string local_ahead, behind})\e[0m"
         show_commits local_ahead
       end
     end
