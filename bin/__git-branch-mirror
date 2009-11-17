@@ -8,6 +8,7 @@ def results(commands):
 
 remote_branches = []
 local_branches = []
+remote_branch_names = []
 branches = results(['git', 'branch', '-a'])
 remotes = results(['git', 'remote'])
 
@@ -22,7 +23,13 @@ for branch in branches:
 for branch in remote_branches:
     name = branch.split('/')[-1]
     remote = branch.split('/')[-2]
+    remote_branch_names.append(name)
     if name not in local_branches:
         print 'Creating %s' % name
         Popen(['git', 'branch', '--track', name, '%s/%s' % (remote, name)], stdout=PIPE).communicate()
         local_branches.append(name)
+
+local_only_branches = set(local_branches).difference(remote_branch_names)
+if local_only_branches:
+    print '\nLocal branches:'
+    print '\n'.join([ '  %s' % x for x in local_only_branches ])
