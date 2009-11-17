@@ -14,14 +14,15 @@
     logtree = log --pretty=oneline --graph --all
     notmerged = cherry -v
     lg = log -p
-    who = shortlog -sn
+    who = shortlog -sne --no-merges
     unstage = reset HEAD --
     visual = !gitk
     datetag = !__git-datetag
     merge-candidate = merge --no-ff
     igrep = grep --full-name -IiE
     remote-branch = !__git-remote-branch
-    wtf = !__git-wtf | less -E
+    wtf = !__git-wtf | less -FE
+    branch-mirror = !__git-branch-mirror
 
 [color]
     diff = auto

@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+from subprocess import call, Popen, PIPE, STDOUT
+
+def results(commands):
+    data = Popen(commands, stdout=PIPE).communicate()
+    return filter(lambda x: x not in ('*', '->'), data[0].split())
+
+remote_branches = []
+local_branches = []
+branches = results(['git', 'branch', '-a'])
+remotes = results(['git', 'remote'])
+
+for branch in branches:
+  if '/' not in branch:
+      local_branches.append(branch)
+  else:
+      for remote in remotes:
+          if branch.startswith('remotes/%s/' % remote) and not branch.endswith('HEAD'):
+              remote_branches.append(branch)
+
+for branch in remote_branches:
+    name = branch.split('/')[-1]
+    remote = branch.split('/')[-2]
+    if name not in local_branches:
+        print 'Creating %s' % name
+        Popen(['git', 'branch', '--track', name, '%s/%s' % (remote, name)], stdout=PIPE).communicate()
+        local_branches.append(name)

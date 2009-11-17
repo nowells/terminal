@@ -3,3 +3,5 @@
 \#*#
 *.pyc
 .bak/
+vssver.scc
+.svn/
