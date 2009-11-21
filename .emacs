@@ -16,6 +16,7 @@
 (require 'lorem-ipsum)
 (require 'column-marker)
 (require 'pager)
+(require 'php-mode)
 
 ;; http://www.cua.dk/ido.html
 (require 'ido)
