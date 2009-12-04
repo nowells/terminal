@@ -126,7 +126,7 @@ def user_prompt():
         uid = 0
         username = 'nobody'
 
-    return fgcolor('%s@%s' % (username, os.uname()[1]), uid == 0 and 'red' or 'brown', light=True)
+    return fgcolor('%s@%s' % (username, os.uname()[1].replace('.local', '')), uid == 0 and 'red' or 'brown', light=True)
 
 def directory_prompt():
     return fgcolor(os.path.abspath(os.curdir), 'blue', light=True)
