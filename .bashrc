@@ -61,11 +61,6 @@ if [ -f $BASHRC_CONFIG_DIR/.bashrc.d/aliases ]; then
     . $BASHRC_CONFIG_DIR/.bashrc.d/aliases
 fi
 
-if [ -f $BASHRC_CONFIG_DIR/.bashrc.d/development ]; then
-    # Development
-    . $BASHRC_CONFIG_DIR/.bashrc.d/development
-fi
-
 if [ -f $BASHRC_CONFIG_DIR/.bashrc.d/functions ]; then
     # Functions
     . $BASHRC_CONFIG_DIR/.bashrc.d/functions

@@ -32,12 +32,6 @@ BLINK='\e[5m'
 REVERSE='\e[7m'
 NC='\e[0m'              # No Color
 
-PS1USERCOLOR="$YELLOW"
-if [ "$UID" = "0" ]; then
-    # I am root
-    PS1USERCOLOR="$RED"
-fi
-
 # Setup the command shell prompt
-export PS1="\n\[$GREEN\]\$(vcprompt.py) \[$PS1USERCOLOR\]\u\[$YELLOW\]@\h\[$WHITE\]:\[$LIGHTBLUE\]\w\[$DARKGRAY\]\n\$ \[$NC\]"
-export PROMPT_COMMAND="veactivate silent &>/dev/null"
+export PATH=$PATH:~/bin
+export PROMPT_COMMAND="eval \$(shell_prompt.py)"

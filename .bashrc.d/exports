@@ -2,6 +2,7 @@ export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/bin:/sbin:/
 export SVNPROTO=svn+ssh://
 export SVNROOT=/var/svn
 export SERVER_IDENTIFIER="local"
+export CONFIG_IDENTIFIER="local"
 export SVN_EDITOR="emacs"
 export EDITOR="emacs"
 export TERM="rxvt"
