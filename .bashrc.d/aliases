@@ -17,6 +17,7 @@ alias du='du -sh'                        # disk usage is human
 alias df='df -h'                        # disk freespace is human
 alias hgrep='history | sed s/\ \ .*\ \ // | grep'
 alias screen="screen -RaAU"
+alias su='su -l'
 alias jl='j -l'
 alias jt='j -t recent'
 alias jr='j -t rank'
