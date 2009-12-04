@@ -3,7 +3,6 @@ from __future__ import with_statement
 import os
 import re
 import pwd
-import sqlite3
 import sys
 from subprocess import Popen, PIPE
 from colors import fgcolor, bgcolor
@@ -50,6 +49,7 @@ def fossil(path):
     if not os.path.exists(file):
         return None
 
+    import sqlite3
     repo = UNKNOWN
     conn = sqlite3.connect(file)
     c = conn.cursor()
