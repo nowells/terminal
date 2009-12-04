@@ -11,25 +11,23 @@ UNKNOWN = "(unknown)"
 SYSTEMS = []
 
 
-def _shell_escape(string):
-    """
-    Escape double quotes, backticks and dollar signs in given ``string``.
-
-    For example::
-
-    >>> _shell_escape('abc$')
-    'abc\\\\$'
-    >>> _shell_escape('"')
-    '\\\\"'
-    """
-    for char in ('"', '$', '`'):
-        string = string.replace(char, '\%s' % char)
-    return string
-
-
 def vcs(function):
     SYSTEMS.append(function)
     return function
+
+
+def vc_prompt(path=None):
+    paths = (path or os.getcwd()).split('/')
+
+    while paths:
+        path = "/".join(paths)
+        prompt = ''
+        for vcs in SYSTEMS:
+            prompt = vcs(path)
+            if prompt:
+                return prompt.strip()
+        paths.pop()
+    return ""
 
 
 @vcs
@@ -56,6 +54,7 @@ def fossil(path):
     repo = c.execute("""SELECT * FROM
                         vvar WHERE
                         name = 'repository' """)
+    conn.close()
     repo = repo.fetchone()[1].split('/')[-1]
     return "fossil:" + repo
 
@@ -87,36 +86,39 @@ def git(path):
 
 @vcs
 def svn(path):
-    # I'm not too keen on calling an external script
-    # TODO find a way to do this in pure Python without the svn bindings
     revision = UNKNOWN
-    if not os.path.exists(os.path.join(path, '.svn')):
+    file = os.path.join(path, '.svn/entries')
+    if not os.path.exists(file):
         return None
-    _p = Popen(['svnversion', path], stdout=PIPE)
-    revision = _p.communicate()[0]
-    return 'svn:r' + revision
+    with open(file, 'r') as f:
+        previous_line = ""
+        for line in f:
+            line = line.strip()
+            # In SVN's entries file, the first set of digits is
+            # the version number. The second is the revision.
+            if re.match('(\d+)', line):
+                if re.match('dir', previous_line):
+                    revision = "r%s" % line
+                    break
+            previous_line = line
+    return 'svn:%s' % revision
 
-def vc_prompt(path=None):
-    path = path or os.getcwd()
-    looped = end = False
-    while True:
-        if looped:
-            path = path.rsplit('/', 1)[0]
-        else:
-            looped = True
-        if not path:
-            if not end:
-                end = True
-                path = '/'
-            else:
-                return ""
 
-        # get vcs
-        prompt = ''
-        for vcs in SYSTEMS:
-            prompt = vcs(path)
-            if prompt:
-                return prompt.strip()
+def _shell_escape(string):
+    """
+    Escape double quotes, backticks and dollar signs in given ``string``.
+
+    For example::
+
+    >>> _shell_escape('abc$')
+    'abc\\\\$'
+    >>> _shell_escape('"')
+    '\\\\"'
+    """
+    for char in ('"', '$', '`'):
+        string = string.replace(char, '\%s' % char)
+    return string
+
 
 def user_prompt():
     try:
@@ -128,8 +130,10 @@ def user_prompt():
 
     return fgcolor('%s@%s' % (username, os.uname()[1].replace('.local', '')), uid == 0 and 'red' or 'brown', light=True)
 
+
 def directory_prompt():
     return fgcolor(os.path.abspath(os.curdir), 'blue', light=True)
+
 
 def __find_virtualenv_directory():
     directory = os.path.abspath(os.curdir)
@@ -140,12 +144,14 @@ def __find_virtualenv_directory():
         if directory == os.path.dirname(directory):
             return None
 
+
 def virtualenv_prompt():
     prompt = ''
     directory = __find_virtualenv_directory()
     if directory:
         prompt = 'virtualenv: %s' % os.path.basename(directory)
     return prompt
+
 
 def virtualenv_prompt_command():
     directory = __find_virtualenv_directory()
@@ -162,6 +168,7 @@ def virtualenv_prompt_command():
     response += 'export PATH=%s;' % _shell_escape(':'.join(path_parts))
     return response
 
+
 def fabfile_prompt():
     directory = os.path.abspath(os.curdir)
     prompt = ''
@@ -172,6 +179,7 @@ def fabfile_prompt():
         else:
             prompt = 'You may run "fab --list" to see available commands.'
     return prompt
+
 
 def prompt():
     version_control = vc_prompt()
@@ -188,11 +196,13 @@ def prompt():
         )
     return 'export PS1="%s";' % _shell_escape(ps1)
 
+
 def prompt_command():
     return '%s%s' % (
         virtualenv_prompt_command(),
         prompt(),
         )
+
 
 if __name__ == '__main__':
     print prompt_command()
