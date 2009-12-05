@@ -80,8 +80,11 @@ def git(path):
     with open(file, 'r') as f:
         line = f.read()
         if re.match('^ref: refs/heads/', line.strip()):
-            branch = (line.split('/')[-1] or UNKNOWN)
-    return prompt + branch
+            branch = (line.split('/')[-1] or UNKNOWN).strip()
+    if branch == 'master':
+        return prompt + bgcolor(branch, 'red')
+    else:
+        return prompt + branch
 
 
 @vcs
@@ -186,7 +189,7 @@ def prompt():
     virtualenv = virtualenv_prompt()
     fabfile = fabfile_prompt()
     ps1 = r'\n%s%s%s%s%s%s\n%s' % (
-        fgcolor(fabfile and r'%s\n' % fabfile or '', 'red'),
+        fgcolor(fabfile and r'%s\n' % fabfile or '', 'cyan'),
         fgcolor(virtualenv and r'%s\n' % virtualenv or '', 'purple', light=True),
         fgcolor(version_control and r'%s ' % version_control or '', 'green'),
         fgcolor(user_prompt(), 'brown', light=True),
