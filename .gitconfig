@@ -1,11 +1,6 @@
 [user]
-    name = Nowell Strite
-    email = nowell@strite.org
-    signingkey = 0x6B2F3382
-
-[github]
-    user = nowells
-    token = 9eab94a0dd4d55b40830f85f789ea48d
+    name = Name
+    email = email@example.com
 
 [push]
     default = current
