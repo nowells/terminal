@@ -1,6 +1,11 @@
 [user]
     name = Nowell Strite
     email = nowell@strite.org
+    signingkey = 0x6B2F3382
+
+[github]
+    user = nowells
+    token = 9eab94a0dd4d55b40830f85f789ea48d
 
 [push]
     default = current
@@ -23,6 +28,7 @@
     remote-branch = !__git-remote-branch
     wtf = !__git-wtf | less -FE
     branch-mirror = !__git-branch-mirror
+    zip = !sh -c 'git archive --format zip $1 > "`basename $PWD`-$1.zip"' -
 
 [color]
     diff = auto
@@ -38,6 +44,7 @@
     excludesfile = ~/.gitignore
     editor = emacs
     whitespace = fix
+    #autocrlf = true
 
 [merge]
     tool = p4
