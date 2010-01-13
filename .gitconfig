@@ -24,9 +24,10 @@
     wtf = !__git-wtf | less -FE
     branch-mirror = !__git-branch-mirror
     zip = !sh -c 'git archive --format zip $1 > "`basename $PWD | tr "[:upper:]" "[:lower:]"`-$1.zip"' -
+    cr = codereview
 
 [color]
-    diff = auto
+    diff = false
     status = auto
     branch = auto
     interactive = auto
@@ -39,6 +40,7 @@
     excludesfile = ~/.gitignore
     editor = emacs
     whitespace = fix
+    pager = tig
     #autocrlf = true
 
 [merge]
