@@ -5,7 +5,7 @@ historyawk(){ history|awk '{a[$2]++}END{for(i in a){printf"%5d\t%s\n",a[i],i}}'|
 bu () { cp $1 ${1}-`date +%Y%m%d%H%M`.backup ; }
 
 cleanup () {
-    find ./ -name '*~' -or -name '*.pyc' -or -name '#*#' -or -name '.*~' -or -name '.#*' | xargs rm -f
+    find ./ -type f -name '*~' -or -name '*.pyc' -or -name '#*#' -or -name '.*~' -or -name '.#*' -print0 | xargs -0 rm -f
     clear
 }
 
